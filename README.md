@@ -1,2 +1,3 @@
 # langchain-integration-template
-Template repo for langchain integration packages
+
+Template repo for LangChain integration packages.

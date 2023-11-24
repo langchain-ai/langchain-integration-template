@@ -1,6 +1,6 @@
 from langchain_integration import __all__
 
-EXPECTED_ALL = ["Integration", "ChatIntegration"]
+EXPECTED_ALL = ["Integration", "ChatIntegration", "IntegrationVectorStore"]
 
 
 def test_all_imports() -> None:

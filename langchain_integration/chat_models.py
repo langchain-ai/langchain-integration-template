@@ -20,7 +20,7 @@ class ChatIntegration(BaseChatModel):
             from langchain_integration import ChatIntegration
 
 
-            model = ChatIntegration(...)
+            model = ChatIntegration(raise NotImplementedError)
     """
 
     @property
@@ -35,7 +35,7 @@ class ChatIntegration(BaseChatModel):
         run_manager: Optional[CallbackManagerForLLMRun] = None,
         **kwargs: Any,
     ) -> Iterator[ChatGenerationChunk]:
-        ...
+        raise NotImplementedError
 
     async def _astream(
         self,
@@ -44,7 +44,7 @@ class ChatIntegration(BaseChatModel):
         run_manager: Optional[AsyncCallbackManagerForLLMRun] = None,
         **kwargs: Any,
     ) -> AsyncIterator[ChatGenerationChunk]:
-        ...
+        raise NotImplementedError
 
     def _generate(
         self,
@@ -53,7 +53,7 @@ class ChatIntegration(BaseChatModel):
         run_manager: Optional[CallbackManagerForLLMRun] = None,
         **kwargs: Any,
     ) -> ChatResult:
-        ...
+        raise NotImplementedError
 
     async def _agenerate(
         self,
@@ -62,4 +62,4 @@ class ChatIntegration(BaseChatModel):
         run_manager: Optional[AsyncCallbackManagerForLLMRun] = None,
         **kwargs: Any,
     ) -> ChatResult:
-        ...
+        raise NotImplementedError

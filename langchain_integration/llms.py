@@ -24,7 +24,7 @@ class Integration(BaseLLM):
 
             from langchain_integration import Integration
 
-            model = Integration(...)
+            model = Integration(raise NotImplementedError)
     """
 
     @property
@@ -39,7 +39,7 @@ class Integration(BaseLLM):
         run_manager: Optional[CallbackManagerForLLMRun] = None,
         **kwargs: Any,
     ) -> LLMResult:
-        ...
+        raise NotImplementedError
 
     async def _agenerate(
         self,
@@ -60,7 +60,7 @@ class Integration(BaseLLM):
         run_manager: Optional[CallbackManagerForLLMRun] = None,
         **kwargs: Any,
     ) -> Iterator[GenerationChunk]:
-        ...
+        raise NotImplementedError
 
     async def _astream(
         self,
@@ -69,4 +69,4 @@ class Integration(BaseLLM):
         run_manager: Optional[AsyncCallbackManagerForLLMRun] = None,
         **kwargs: Any,
     ) -> AsyncIterator[GenerationChunk]:
-        ...
+        raise NotImplementedError

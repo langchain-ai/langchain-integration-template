@@ -5,6 +5,7 @@ from functools import partial
 from typing import (
     TYPE_CHECKING,
     Any,
+    Callable,
     Iterable,
     List,
     Optional,
@@ -30,7 +31,7 @@ class IntegrationVectorStore(VectorStore):
 
             from langchain_integration.vectorstores import IntegrationVectorStore
 
-            vectorstore = IntegrationVectorStore(...)
+            vectorstore = IntegrationVectorStore(raise NotImplementedError)
     """
 
     def add_texts(
@@ -39,7 +40,7 @@ class IntegrationVectorStore(VectorStore):
         metadatas: Optional[List[dict]] = None,
         **kwargs: Any,
     ) -> List[str]:
-        ...
+        raise NotImplementedError
 
     async def aadd_texts(
         self,
@@ -52,31 +53,17 @@ class IntegrationVectorStore(VectorStore):
         )
 
     def delete(self, ids: Optional[List[str]] = None, **kwargs: Any) -> Optional[bool]:
-        ...
+        raise NotImplementedError
 
     async def adelete(
         self, ids: Optional[List[str]] = None, **kwargs: Any
     ) -> Optional[bool]:
-        ...
+        raise NotImplementedError
 
     def similarity_search(
         self, query: str, k: int = 4, **kwargs: Any
     ) -> List[Document]:
-        ...
-
-    def similarity_search_with_score(
-        self, *args: Any, **kwargs: Any
-    ) -> List[Tuple[Document, float]]:
-        ...
-
-    async def asimilarity_search_with_score(
-        self, *args: Any, **kwargs: Any
-    ) -> List[Tuple[Document, float]]:
-        # This is a temporary workaround to make the similarity search
-        # asynchronous. The proper solution is to make the similarity search
-        # asynchronous in the vector store implementations.
-        func = partial(self.similarity_search_with_score, *args, **kwargs)
-        return await asyncio.get_event_loop().run_in_executor(None, func)
+        raise NotImplementedError
 
     async def asimilarity_search(
         self, query: str, k: int = 4, **kwargs: Any
@@ -87,10 +74,24 @@ class IntegrationVectorStore(VectorStore):
         func = partial(self.similarity_search, query, k=k, **kwargs)
         return await asyncio.get_event_loop().run_in_executor(None, func)
 
+    def similarity_search_with_score(
+        self, *args: Any, **kwargs: Any
+    ) -> List[Tuple[Document, float]]:
+        raise NotImplementedError
+
+    async def asimilarity_search_with_score(
+        self, *args: Any, **kwargs: Any
+    ) -> List[Tuple[Document, float]]:
+        # This is a temporary workaround to make the similarity search
+        # asynchronous. The proper solution is to make the similarity search
+        # asynchronous in the vector store implementations.
+        func = partial(self.similarity_search_with_score, *args, **kwargs)
+        return await asyncio.get_event_loop().run_in_executor(None, func)
+
     def similarity_search_by_vector(
         self, embedding: List[float], k: int = 4, **kwargs: Any
     ) -> List[Document]:
-        ...
+        raise NotImplementedError
 
     async def asimilarity_search_by_vector(
         self, embedding: List[float], k: int = 4, **kwargs: Any
@@ -109,7 +110,7 @@ class IntegrationVectorStore(VectorStore):
         lambda_mult: float = 0.5,
         **kwargs: Any,
     ) -> List[Document]:
-        ...
+        raise NotImplementedError
 
     async def amax_marginal_relevance_search(
         self,
@@ -140,7 +141,7 @@ class IntegrationVectorStore(VectorStore):
         lambda_mult: float = 0.5,
         **kwargs: Any,
     ) -> List[Document]:
-        ...
+        raise NotImplementedError
 
     async def amax_marginal_relevance_search_by_vector(
         self,
@@ -150,7 +151,7 @@ class IntegrationVectorStore(VectorStore):
         lambda_mult: float = 0.5,
         **kwargs: Any,
     ) -> List[Document]:
-        ...
+        raise NotImplementedError
 
     @classmethod
     def from_texts(
@@ -160,7 +161,7 @@ class IntegrationVectorStore(VectorStore):
         metadatas: Optional[List[dict]] = None,
         **kwargs: Any,
     ) -> VST:
-        ...
+        raise NotImplementedError
 
     @classmethod
     async def afrom_texts(
@@ -173,3 +174,6 @@ class IntegrationVectorStore(VectorStore):
         return await asyncio.get_running_loop().run_in_executor(
             None, partial(cls.from_texts, **kwargs), texts, embedding, metadatas
         )
+
+    def _select_relevance_score_fn(self) -> Callable[[float], float]:
+        raise NotImplementedError

@@ -63,7 +63,7 @@ jobs:
         with:
           path: |
             ${{ env.WORKDIR }}/.mypy_cache
-          key: mypy-${{ runner.os }}-${{ runner.arch }}-py${{ matrix.python-version }}-${{ hashFiles(format('{0}/poetry.lock')) }}
+          key: mypy-${{ runner.os }}-${{ runner.arch }}-py${{ matrix.python-version }}-${{ hashFiles('./poetry.lock') }}
 
       - name: Analysing the code with our lint
         run: |

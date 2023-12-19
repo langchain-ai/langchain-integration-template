@@ -1,3 +1,3 @@
-# langchain-integration-template
+# langchain-integration-template (Archived)
 
-Template repo for LangChain integration packages.
+Instead, follow the instructions here: [https://python.langchain.com/docs/contributing/integrations](https://python.langchain.com/docs/contributing/integrations)
